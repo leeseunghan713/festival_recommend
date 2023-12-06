@@ -46,9 +46,7 @@ cosine_similarities = linear_kernel(liked_festivals_tfidf, tfidf_matrix).flatten
 # 유사한 축제 정렬
 similar_festivals_indices = cosine_similarities.argsort()[::-1]
 
-for i in range(len(similar_festivals_indices)):
-  if(similar_festivals_indices[i] >= len(future_festivals)):
-    similar_festivals_indices[i] = similar_festivals_indices[i] - len(future_festivals)
+similar_festivals_indices = similar_festivals_indices - (similar_festivals_indices // len(future_festivals)) * len(future_festivals)
 
 similar_festivals_indices = list(dict.fromkeys(similar_festivals_indices))
 
